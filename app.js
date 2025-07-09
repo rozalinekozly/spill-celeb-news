@@ -1,16 +1,16 @@
 // app.js
 
-const apiKey = NEWS_API_KEY; 
+const apiKey = process.env.NEWS_API_KEY; 
 const feed = document.getElementById('feed');
 
 async function fetchArticles() {
-    try {
-        const response = await fetch(`https://newsapi.org/v2/top-headlines?category=entertainment&language=en&pageSize=12&apiKey=${apiKey}`);
+try {
+        const response = await fetch(url);
         const data = await response.json();
-        displayArticles(data.articles);
+        res.status(200).json(data);
     } catch (error) {
-        console.error('Error fetching articles:', error);
-        feed.innerHTML = '<p>Failed to load articles. Please try again later.</p>';
+        console.error('Error fetching news:', error);
+        res.status(500).json({ error: 'Error fetching news' });
     }
 }
 
