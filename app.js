@@ -1,16 +1,13 @@
-// app.js
-
-const apiKey = process.env.NEWS_API_KEY; 
 const feed = document.getElementById('feed');
 
 async function fetchArticles() {
-try {
-        const response = await fetch(url);
+    try {
+        const response = await fetch('/api/news');
         const data = await response.json();
-        res.status(200).json(data);
+        displayArticles(data.articles);
     } catch (error) {
-        console.error('Error fetching news:', error);
-        res.status(500).json({ error: 'Error fetching news' });
+        console.error('Error fetching articles:', error);
+        feed.innerHTML = '<p>Failed to load articles. Please try again later.</p>';
     }
 }
 
