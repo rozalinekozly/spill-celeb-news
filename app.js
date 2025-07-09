@@ -13,7 +13,7 @@ async function fetchArticles() {
 
 function displayArticles(articles) {
     feed.innerHTML = '';
-    articles.forEach(article => {
+    articles.forEach(article => {   // <-- 🚩 this is your current loop
         const card = document.createElement('div');
         card.className = 'article-card';
 
@@ -45,5 +45,6 @@ function displayArticles(articles) {
         feed.appendChild(card);
     });
 }
+
 
 document.addEventListener('DOMContentLoaded', fetchArticles);
