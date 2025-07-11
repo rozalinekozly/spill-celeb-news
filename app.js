@@ -1,8 +1,10 @@
 const feed = document.getElementById('feed');
+const searchBtn = document.getElementById('search-btn');
+const celebInput = document.getElementById('celebrity-input');
 
-async function fetchArticles() {
+async function fetchArticles(celebrity = '') {
     try {
-        const response = await fetch('/api/news');
+        const response = await fetch(`/api/news${celebrity ? '?q=' + encodeURIComponent(celebrity) : ''}`);
         const data = await response.json();
         displayArticles(data.articles);
     } catch (error) {
@@ -11,9 +13,17 @@ async function fetchArticles() {
     }
 }
 
+searchBtn.addEventListener('click', () => {
+    const celebrity = celebInput.value.trim();
+    fetchArticles(celebrity);
+});
+
+document.addEventListener('DOMContentLoaded', () => fetchArticles());
+
+
 function displayArticles(articles) {
     feed.innerHTML = '';
-    articles.forEach(article => {   // <-- 🚩 this is your current loop
+    articles.forEach(article => {  
         const card = document.createElement('div');
         card.className = 'article-card';
 
